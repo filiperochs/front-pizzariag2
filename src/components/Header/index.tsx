@@ -11,12 +11,11 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
 const Header = () => {
-  // 
+  //
   // const firebaseAuth = getAuth(app);
   const [{ user }, dispatch] = useStateValue();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenMobileNav, setIsOpenMobileNav] = useState(false);
-
 
   return (
     <header className="w-screen fixed z-50 bg-cardOverlay backdrop-blur-md md:p-3 md:px-4 lg:p-6 lg:px-16">
@@ -29,7 +28,7 @@ const Header = () => {
           >
             <img src={Logo} alt="Logo" className="md:w-6 lg:w-8 object-cover" />
             <p className="text-headingColor md:text-lg lg:text-xl font-bold">
-              Bentilzone
+              Pizzaria do seu zé
             </p>
           </motion.div>
         </Link>
@@ -86,7 +85,7 @@ const Header = () => {
               >
                 <img src={Logo} alt="Logo" className="w-8 object-cover" />
                 <p className="text-headingColor text-xl font-bold">
-                  Bentilzone
+                  Pizzaria do seu zé
                 </p>
               </motion.div>
             </Link>
@@ -107,7 +106,7 @@ const Header = () => {
                   <p className="text-headingColor cursor-pointer flex items-center justify-center gap-2">
                     <RiArrowDropDownLine />
                   </p>
-                  {isOpen && <DropDown user={user}  />}
+                  {isOpen && <DropDown user={user} />}
                 </motion.div>
               </div>
             ) : (

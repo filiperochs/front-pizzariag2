@@ -6,7 +6,7 @@ import { useStateValue } from "../../context/StateProvider";
 import { emptyCart, hideCart } from "../../utils/functions";
 import { Link } from "react-router-dom";
 const CartHeader = () => {
-  const [{  user, cartItems, foodItems }, dispatch] = useStateValue();
+  const [{ user, cartItems, foodItems }, dispatch] = useStateValue();
 
   return (
     <div className="w-full flex items-center bg-white justify-between px-4 py-2 cursor-pointer">
@@ -15,7 +15,7 @@ const CartHeader = () => {
       </motion.div>
 
       <div className="flex items-center justify-center gap-2">
-        Cart
+        Carrinho
         <MdShoppingBasket className="text-xl cursor-pointer text-cartNumBg" />
       </div>
 
@@ -26,7 +26,7 @@ const CartHeader = () => {
           onClick={() => emptyCart(cartItems, foodItems, dispatch)}
           className="flex items-center justify-center gap-2 p-1 px-2 my-2 bg-cardOverlay rounded-md hover:shadow-sm text-textColor text-base"
         >
-          clear <BiRefresh className="text-cartNumBg" />
+          limpar <BiRefresh className="text-cartNumBg" />
         </motion.p>
       ) : (
         <Link to={`/login`} onClick={() => hideCart(dispatch)}>
@@ -35,7 +35,7 @@ const CartHeader = () => {
             whileHover={{ scale: 0.9 }}
             className="flex items-center justify-center gap-2 p-1 px-2 my-2 bg-cardOverlay rounded-md hover:shadow-sm text-textColor text-base"
           >
-            <MdLogin className="text-cartNumBg" /> Login to cart
+            <MdLogin className="text-cartNumBg" /> Fazer login
           </motion.p>
         </Link>
       )}

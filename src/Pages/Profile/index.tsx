@@ -1,9 +1,6 @@
-import {  BiUser } from "react-icons/bi";
-import {  BsPhone } from "react-icons/bs";
-import {
-  MdOutlineDataSaverOn,
-  MdDeleteOutline,
-} from "react-icons/md";
+import { BiUser } from "react-icons/bi";
+import { BsPhone } from "react-icons/bs";
+import { MdOutlineDataSaverOn, MdDeleteOutline } from "react-icons/md";
 
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
@@ -13,15 +10,14 @@ import { AssetUploader, Loader } from "../../components";
 import { updateUserData } from "../../utils/functions";
 import { firebaseRemoveUploadedImage } from "../../Firebase";
 
-
 const UpdateProfile = () => {
   const [{ user }, dispatch] = useStateValue();
-  const [displayName, setDisplayName] = useState(user.displayName)
+  const [displayName, setDisplayName] = useState(user.displayName);
   // const [email, setEmail] = useState(user.email)
-  const [photoURL, setPhotoURL] = useState(user.photoURL)
-  const [loading, setLoading] = useState(false)
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber)
-  const [btnText, setBtnText] = useState("Save")
+  const [photoURL, setPhotoURL] = useState(user.photoURL);
+  const [loading, setLoading] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+  const [btnText, setBtnText] = useState("Save");
   const [loaderMessage, setLoadermessage] = useState("");
 
   const deleteImage = async () => {
@@ -31,39 +27,35 @@ const UpdateProfile = () => {
     await updateUserData(data, dispatch, false);
   };
   const saveChanges = async () => {
-    setBtnText("Saving....");
-    if(displayName.lenth < 0 || phoneNumber.length !== 10)
-    {
-      toast.error("Fill out fields correctly")
-      setBtnText("Save")
-    }else{
+    setBtnText("Salvando....");
+    if (displayName.lenth < 0 || phoneNumber.length !== 10) {
+      toast.error("Preencha os campos corretamente");
+      setBtnText("Salvar");
+    } else {
       const data = {
         ...user,
         displayName,
         phoneNumber,
         photoURL,
-      }
+      };
       await updateUserData(data, dispatch, true);
-      setBtnText("Save");
+      setBtnText("Salvar");
     }
-
   };
 
   const updatePhotoUrl = async (newUrl: string) => {
     setPhotoURL(newUrl);
     const data = { ...user, photoURL: newUrl };
-     await updateUserData(data, dispatch, false)
-  }
+    await updateUserData(data, dispatch, false);
+  };
 
   const validateNumber = (value: any) => {
     if (isNaN(value)) {
-      toast.error("Please enter a valid phone number", { toastId: 123 });
+      toast.error("Insira um número válido", { toastId: 123 });
       return "";
     }
     return value;
   };
-
-
 
   return (
     <div className="w-full h-full flex items-center justify-center">
@@ -73,7 +65,7 @@ const UpdateProfile = () => {
           <input
             type="text"
             required
-            placeholder="Enter full name"
+            placeholder="Nome completo"
             autoFocus
             className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
             value={displayName}
@@ -87,7 +79,7 @@ const UpdateProfile = () => {
             <input
               type="text"
               required
-              placeholder="Phone"
+              placeholder="Celular"
               className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(validateNumber(e.target.value))}
@@ -95,12 +87,11 @@ const UpdateProfile = () => {
           </div>
         </div>
         <div className="group flex justify-center items-center flex-col border-2 border-dotted border-gray-300 w-full h-[225px]  md:h-[420px] round-lg">
-          {
-            loading ? (
-              <Loader progress={loaderMessage} />
-            ):(
-              <>
-             {photoURL ? (
+          {loading ? (
+            <Loader progress={loaderMessage} />
+          ) : (
+            <>
+              {photoURL ? (
                 <>
                   <div className="relative h-full">
                     <img
@@ -111,7 +102,7 @@ const UpdateProfile = () => {
                     <motion.button
                       whileTap={{ scale: 1.1 }}
                       whileHover={{ scale: 1.2 }}
-                      title="Remove Photo"
+                      title="Removar Imagem"
                       className="absolute bottom-3 right-3 rounded-full p-2 md:p-5 bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md duration-500 transition-all ease-in-out"
                       onClick={() => deleteImage()}
                     >
@@ -126,9 +117,8 @@ const UpdateProfile = () => {
                   promise={setLoading}
                 />
               )}
-              </>
-            )
-          }
+            </>
+          )}
         </div>
 
         <div className="w-full flex items-center justify-center">

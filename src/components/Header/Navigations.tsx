@@ -17,7 +17,7 @@ const Navigations = ({ direction }: { direction?: string }) => {
       type: "TOGGLE_CONTACT_FORM",
       showContactForm: !showContactForm,
     });
-  }
+  };
   return (
     <div className="flex items-center gap-8">
       <motion.ul
@@ -30,32 +30,32 @@ const Navigations = ({ direction }: { direction?: string }) => {
           whileHover={{ scale: 1.1 }}
           className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
         >
-          <Link to={'/'}>Home</Link>
+          <Link to={"/"}>Início</Link>
         </motion.li>
         <motion.li
           whileHover={{ scale: 1.1 }}
           className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
         >
-          <Link to={'/menu'}>Menu</Link>
+          <Link to={"/menu"}>Menu</Link>
         </motion.li>
         <motion.li
           whileHover={{ scale: 1.1 }}
           className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
         >
-          <Link to={'/services'}>Services</Link>
+          <Link to={"/services"}>Serviços</Link>
         </motion.li>
         <motion.li
           whileHover={{ scale: 1.1 }}
           className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
         >
-          <Link to={'/about'}>About us</Link>
+          <Link to={"/about"}>Sobre nós</Link>
         </motion.li>
         <motion.li
           whileHover={{ scale: 1.1 }}
           className="md:text-sm lg:text-md text-base text-textColor cursor-pointer hover:text-headingColor duration-100 transition-all ease-in-out"
           onClick={handleToggleContact}
         >
-          Contact us
+          Contato
         </motion.li>
       </motion.ul>
 

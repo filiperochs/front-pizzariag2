@@ -24,13 +24,13 @@ export const addToCart = async (
   dispatch: any
 ) => {
   if (!user) {
-    toast.error("Please login to add items to cart", {
+    toast.error("Faça login para adicionar itens no carrinho", {
       icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
       toastId: "unauthorizedAddToCart",
     });
   } else {
     if (cartItems.some((item: cartItem) => item["fid"] === fid)) {
-      toast.error("Item already in cart", {
+      toast.error("Item já está no carrinho", {
         icon: <MdShoppingBasket className="text-2xl text-cartNumBg" />,
         toastId: "itemAlreadyInCart",
       });
@@ -288,8 +288,10 @@ export const ToggleAdminMode = (dispatch: any, state: boolean) => {
 };
 
 export const isAdmin = (user: any) => {
-  let isAdmin =user?.email == "bentilshadrack72@gmail.com" || user?.email == "admin@test.com"
-  return isAdmin
+  let isAdmin =
+    user?.email == "bentilshadrack72@gmail.com" ||
+    user?.email == "admin@test.com";
+  return isAdmin;
 };
 
 // get user
@@ -330,15 +332,17 @@ export const dispatchUsers = async (dispatch: any) => {
     })
     .catch((e: any) => {
       console.log(e);
-    }); 
-}
-export const getAllUser = async() => {
-   await firebaseGetAllUsers().then((users: any) => {
-    return users
-   }).catch((e:any) => {
-    console.log(e)
-   })
-}
+    });
+};
+export const getAllUser = async () => {
+  await firebaseGetAllUsers()
+    .then((users: any) => {
+      return users;
+    })
+    .catch((e: any) => {
+      console.log(e);
+    });
+};
 // delete food
 export const deleteFood = async (
   food: FoodItem,
@@ -348,14 +352,12 @@ export const deleteFood = async (
   await firebaseDeleteFood(food.id);
   // remove food from foodItems
   const foodIndex = foodItems.indexOf(food);
-  if(foodIndex !== -1)
-  {
-    foodItems.splice(foodIndex, 1)
+  if (foodIndex !== -1) {
+    foodItems.splice(foodIndex, 1);
   }
-  dispatch ({
+  dispatch({
     type: "SET_FOOD_ITEMS",
-    foodItems
-  })
+    foodItems,
+  });
   toast.success("Food deleted successfully");
 };
-

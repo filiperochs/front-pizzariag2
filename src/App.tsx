@@ -27,8 +27,10 @@ import { useEffect } from "react";
 import { useStateValue } from "./context/StateProvider";
 
 function App() {
-  const [{ showCart,showContactForm, user, foodItems, cartItems, adminMode }, dispatch] =
-    useStateValue();
+  const [
+    { showCart, showContactForm, user, foodItems, cartItems, adminMode },
+    dispatch,
+  ] = useStateValue();
 
   useEffect(() => {
     fetchFoodData(dispatch);

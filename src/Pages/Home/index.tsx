@@ -1,15 +1,13 @@
-import { FruitsSection, MenuSection, ShowcaseBanner, } from "../../components"
+import { FruitsSection, MenuSection, ShowcaseBanner } from "../../components";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
-    <div className='flex w-full h-auto flex-col items-center justify-center'>
+    <div className="flex w-full h-auto flex-col items-center justify-center">
       <ShowcaseBanner />
       <FruitsSection />
       <MenuSection />
-
     </div>
+  );
+};
 
-  )
-}
-
-export default Home
+export default Home;

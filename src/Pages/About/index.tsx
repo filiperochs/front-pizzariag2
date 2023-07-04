@@ -1,9 +1,9 @@
 const About = () => {
   return (
     <div>
-      <h1>About Page Cominig Up soon!!</h1>
+      <h1>Página em construção!!</h1>
     </div>
   );
-}
+};
 
 export default About;

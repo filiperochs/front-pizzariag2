@@ -35,15 +35,15 @@ const AddFood = () => {
   const [{ foodItems }, dispatch] = useStateValue();
 
   const deleteImage = () => {
-    setLoadermessage("Removing Photo......");
+    setLoadermessage("Removendo imagem......");
     firebaseRemoveUploadedImage(image, setImage, setLoading);
   };
   const saveItem = () => {
-    setLoadermessage(`Saving Product ${title}.`);
+    setLoadermessage(`Salvando Produto ${title}.`);
     setLoading(true);
     try {
       if (!title || !calories || !price || !image || !category) {
-        toast.error("Please fill all fields before saving product 🤗");
+        toast.error("Preencha todos os campos antes de salvar o produto 🤗");
         setLoading(false);
         return;
       } else {
@@ -59,9 +59,9 @@ const AddFood = () => {
         };
         toast
           .promise(firebaseSaveProduct(data), {
-            pending: "Saving Product...",
-            success: "Product saved successfully",
-            error: "Error saving product, Please try again🤗",
+            pending: "Salvando Produto...",
+            success: "Produto salvo com sucesso 🤗",
+            error: "Erro salvando produto, tente novamente 🤗",
           })
           .then(() => {
             clearForm();
@@ -76,7 +76,7 @@ const AddFood = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Error whilesaving product");
+      toast.error("Erro enquanto salvava o produto");
     }
   };
   const clearForm = () => {
@@ -91,13 +91,11 @@ const AddFood = () => {
 
   const validateNumber = (value: any) => {
     if (isNaN(value)) {
-      toast.error("Please enter a valid number", { toastId: 123 });
+      toast.error("Preencha um número válido", { toastId: 123 });
       return "";
     }
     return value;
   };
-
-
 
   return (
     <div className="w-full h-fullflex items-center justify-center">
@@ -107,7 +105,7 @@ const AddFood = () => {
           <input
             type="text"
             required
-            placeholder="Enter food name"
+            placeholder="Nome da comida"
             autoFocus
             className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
             value={title}
@@ -129,7 +127,7 @@ const AddFood = () => {
             <input
               type="text"
               required
-              placeholder="Quantity"
+              placeholder="Quantidade"
               autoFocus
               className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
               value={quantity}
@@ -153,7 +151,7 @@ const AddFood = () => {
                     <motion.button
                       whileTap={{ scale: 1.1 }}
                       whileHover={{ scale: 1.2 }}
-                      title="Remove Photo"
+                      title="Remover imagem"
                       className="absolute bottom-3 right-3 rounded-full p-2 md:p-5 bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md duration-500 transition-all ease-in-out"
                       onClick={() => deleteImage()}
                     >
@@ -177,7 +175,7 @@ const AddFood = () => {
             <input
               type="text"
               required
-              placeholder="Calories"
+              placeholder="Calorias"
               autoFocus
               className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
               value={calories}
@@ -189,7 +187,7 @@ const AddFood = () => {
             <input
               type="text"
               required
-              placeholder="Price"
+              placeholder="Preço"
               autoFocus
               className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
               value={price}
@@ -202,7 +200,7 @@ const AddFood = () => {
           <input
             type="text"
             required
-            placeholder="Short Description"
+            placeholder="Descrição curta"
             autoFocus
             className="h-full w-full  bg-transparent pl-2 text-textColor outline-none border-none placeholder:text-gray-400"
             value={description}
@@ -216,7 +214,7 @@ const AddFood = () => {
             className="ml-0 flex justify-center items-center gap-2 flex-row-reverse md:ml-auto w-full md:w-auto border-none outline-none rounded bg-orange-500 px-12 py-2 text-lg text-white"
             onClick={() => saveItem()}
           >
-            <MdOutlineDataSaverOn /> Save
+            <MdOutlineDataSaverOn /> Salvar
           </motion.button>
         </div>
       </div>
