@@ -18,7 +18,7 @@ const Left = () => {
         O delivery mais rápido de
         <span className="text-orange-600 text-[2.5rem] lg:text-[4.6rem]">
           {" "}
-          Belo Horizonte
+          BH
         </span>
       </p>
       <p className="text-base text-textColor text-center md:text-left md:w-[80%]">
