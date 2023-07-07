@@ -1,11 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
-import ProviderAuth, { ImageBox } from ".";
+import { ImageBox } from ".";
 import { toast } from "react-toastify";
 
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useStateValue } from "../../context/StateProvider";
-import { EMAILSIGNIN } from "../../Firebase";
+import { localLogin } from "../../Api/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -16,32 +16,35 @@ const Login = () => {
   const EmailAuth = () => {
     if (!user) {
       if (email.length > 0 && password.length > 0) {
-        toast.promise(
-          EMAILSIGNIN(email, password),
-          {
-            pending: "Signing in...",
-            success: "Signin successful: WELCOME!",
-            error: "Error signing account, Please try again🤗",
-          }
-        ).then((userData) => {
-          // Signed in
-          const user = userData[0]; 
-          dispatch({
-            type: "SET_USER",
-            user: user,
+        toast
+          .promise(
+            localLogin({
+              identifier: email,
+              password: password,
+            }),
+            {
+              pending: "Logando...",
+              success: "Logado com sucesso!",
+              error: "Erro ao fazer login. Tente novamente 🤗",
+            }
+          )
+          .then((data) => {
+            // Signed in
+            const user = data.user;
+            dispatch({
+              type: "SET_USER",
+              user: user,
+            });
+            localStorage.setItem("jwt", JSON.stringify(data.jwt));
+            navigate("/");
+          })
+          .catch((error) => {
+            // const errorCode = error.code;
+            const errorMessage = error.message;
+            toast.error(errorMessage, { autoClose: 15000 });
           });
-          localStorage.setItem("user", JSON.stringify(user));
-          navigate("/");
-        }
-        ).catch((error) => {
-          // const errorCode = error.code;
-          const errorMessage = error.message;
-          toast.error(errorMessage, { autoClose: 15000 });
-        }
-        );
-
       } else {
-        toast.warn("Please fill all the fields", { autoClose: 15000 });
+        toast.warn("Preencha todos os campos", { autoClose: 15000 });
       }
     }
   };
@@ -53,17 +56,11 @@ const Login = () => {
           <ImageBox />
           <div className="w-full md:w-[30rem]">
             <form className="p-2">
-              <ProviderAuth />
-              <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
-                <p className="text-center text-textColor text-sm font-semibold mx-4 mb-0">
-                  OR
-                </p>
-              </div>
               <div className="mb-6">
                 <input
                   type="text"
                   className="form-control block w-full px-4 py-2  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-orange-600 focus:outline-none"
-                  placeholder="Email address"
+                  placeholder="Email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -72,7 +69,7 @@ const Login = () => {
                 <input
                   type="password"
                   className="form-control block w-full px-4 py-2  text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-orange-600 focus:outline-none"
-                  placeholder="Password"
+                  placeholder="Senha"
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
@@ -82,7 +79,7 @@ const Login = () => {
                   to="/"
                   className="text-orange-600 hover:text-orange-700 focus:text-orange-700 active:text-orange-800 duration-200 transition ease-in-out"
                 >
-                  Forgot password?
+                  Esqueceu a senha?
                 </Link>
               </div>
 
@@ -91,12 +88,12 @@ const Login = () => {
                 onClick={EmailAuth}
                 whileHover={{ scale: 1.1 }}
               >
-                Sign in
+                Entrar
               </motion.p>
 
               <div className="flex items-center my-4 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5">
                 <p className="text-center text-sm text-textColor font-semibold mx-4 mb-0">
-                  Don't have an account?
+                  Não tem uma conta?
                 </p>
               </div>
               <Link to={"/register"}>
@@ -104,7 +101,7 @@ const Login = () => {
                   whileHover={{ scale: 0.99 }}
                   className="cursor-pointer flex items-center justify-center px-7 py-3 bg-gradient-to-br from-orange-400 to-orange-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-600 hover:shadow-lg focus:bg-orange-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
                 >
-                  Sign Up
+                  Cadastrar
                 </motion.p>
               </Link>
             </form>
