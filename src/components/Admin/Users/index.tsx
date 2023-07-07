@@ -27,7 +27,7 @@ const Users = () => {
       {/* search bar */}
       <div className="w-full flex justify-center p-2 bg-white mb-4 rounded-lg">
         <input
-          className="w-full p-2 outline-none rounded-lg "
+          className="w-full p-2 outline-none rounded-lg"
           type="text"
           placeholder="Buscar usuário"
           value={query}
@@ -42,7 +42,7 @@ const Users = () => {
       {/* dasboard statistics and counts */}
       <div className="w-full grid grid-cols-3 gap-1">
         {filteredUsers.map((user: any) => (
-          <User key={user.uid} item={user} />
+          <User key={user.id} item={user} />
         ))}
       </div>
     </div>

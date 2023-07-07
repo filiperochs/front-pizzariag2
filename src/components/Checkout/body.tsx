@@ -18,19 +18,17 @@ const Body = ({ action }: { action: any }) => {
   const [loading, setLoading] = useState(false);
 
   const completePayment = () => {
-    if (!checkoutData) return toast.error("Complete payment info");
+    if (!checkoutData)
+      return toast.error("Complete as informações de pagamento");
     setLoading(true);
     setTimeout(async () => {
       setLoading(false);
       await emptyCart(cartItems, foodItems, dispatch);
       action(false);
-      toast.success(
-        "Order completed successfuly with payment. Thank you for your patronage.",
-        {
-          position: "top-center",
-          autoClose: 6000,
-        }
-      );
+      toast.success("Pedido feito com sucesso", {
+        position: "top-center",
+        autoClose: 6000,
+      });
     }, 3000);
   };
   return (
@@ -39,11 +37,11 @@ const Body = ({ action }: { action: any }) => {
       <Selector />
       {/* payment form  */}
       <div className="min-h-[50vh] mt-5">
-        {paymentMethod === "mobile_money" ? <MomoForm /> : <CardForm />}
+        {paymentMethod === "mobile_money" && <CardForm />}
         <div className="w-full flex items-center justify-center my-2">
           <p className="text-gray-300">
-            Amount Due:{" "}
-            <span className="font-bold text-white">{`GHR$${cartTotal}`}</span>{" "}
+            Total:{" "}
+            <span className="font-bold text-white">{`R$${cartTotal}`}</span>{" "}
           </p>
         </div>
         {/* pay now button */}
@@ -56,7 +54,7 @@ const Body = ({ action }: { action: any }) => {
           >
             {!loading && <BiLock className="" />}
             {!loading ? (
-              "PAY NOW"
+              "PAGAR"
             ) : (
               <ImSpinner3 className="animate animate-spin" />
             )}

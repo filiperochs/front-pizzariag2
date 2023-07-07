@@ -1,10 +1,9 @@
-import { FruitsSection, MenuSection, ShowcaseBanner } from "../../components";
+import { MenuSection, ShowcaseBanner } from "../../components";
 
 const Home: React.FC = () => {
   return (
     <div className="flex w-full h-auto flex-col items-center justify-center">
       <ShowcaseBanner />
-      <FruitsSection />
       <MenuSection />
     </div>
   );

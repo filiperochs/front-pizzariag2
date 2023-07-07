@@ -1,12 +1,10 @@
-import { firebaseGetAllUsers } from "../Firebase";
-
 export const fetchSessionUser = () => {
-  const jwt =
-    localStorage.getItem("jwt") !== "undefined"
-      ? JSON.parse(localStorage.getItem("jwt"))
+  const user =
+    localStorage.getItem("user") !== "undefined"
+      ? JSON.parse(localStorage.getItem("user"))
       : localStorage.clear();
 
-  return jwt;
+  return user;
   // return null
 };
 export const fetchSessionCart = () => {
@@ -25,5 +23,6 @@ export const fetchSessionUserMode = () => {
       ? JSON.parse(localStorage.getItem("adminMode"))
       : localStorage.clear();
 
-  return adminMode ? adminMode : false;
+  // return adminMode ? adminMode : false;
+  return true;
 };

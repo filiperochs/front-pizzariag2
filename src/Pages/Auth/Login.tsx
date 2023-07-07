@@ -35,7 +35,7 @@ const Login = () => {
               type: "SET_USER",
               user: user,
             });
-            localStorage.setItem("jwt", JSON.stringify(data.jwt));
+            localStorage.setItem("user", JSON.stringify(data.user));
             navigate("/");
           })
           .catch((error) => {

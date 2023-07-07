@@ -1,15 +1,8 @@
 import { FoodItem, cartItem } from "../../types";
 import {
-  firebaseAddToCart,
-  firebaseDeleteCartItem,
-  firebaseDeleteFood,
-  firebaseEmptyUserCart,
-  firebaseFetchAllCartItems,
-  firebaseFetchFoodItems,
   firebaseGetAllUsers,
   firebaseGetUser,
   firebaseLogout,
-  firebaseUpdateCartItem,
   firebaseUpdateUser,
 } from "../Firebase";
 
@@ -46,7 +39,6 @@ export const addToCart = async (
         cartItems: [...cartItems, data],
       });
       calculateCartTotal(cartItems, foodItems, dispatch);
-      await firebaseAddToCart(data);
     }
   }
 };
@@ -66,32 +58,25 @@ export const dispatchtUserCartItems = (
 
 export const fetchUserCartData = async (user: any, dispatch: any) => {
   if (user) {
-    await firebaseFetchAllCartItems()
-      .then((data) => {
-        const userCart = dispatchtUserCartItems(user.uid, data, dispatch);
-        localStorage.setItem("cartItems", JSON.stringify(userCart));
-      })
-      .then(() => {})
-      .catch((e) => {
-        console.log(e);
-      });
+    const userCart = dispatchtUserCartItems(user.uid, [], dispatch);
+    localStorage.setItem("cartItems", JSON.stringify(userCart));
   } else {
     localStorage.setItem("cartItems", "undefined");
   }
 };
 
 export const fetchFoodData = async (dispatch: any) => {
-  await firebaseFetchFoodItems()
-    .then((data) => {
-      dispatch({
-        type: "SET_FOOD_ITEMS",
-        foodItems: data,
-      });
-    })
-    .then(() => {})
-    .catch((e) => {
-      console.log(e);
-    });
+  // await firebaseFetchFoodItems()
+  //   .then((data) => {
+  //     dispatch({
+  //       type: "SET_FOOD_ITEMS",
+  //       foodItems: data,
+  //     });
+  //   })
+  //   .then(() => {})
+  //   .catch((e) => {
+  //     console.log(e);
+  //   });
 };
 
 export const getFoodyById = (menu: FoodItem[], fid: number) => {
@@ -114,11 +99,6 @@ export const updateCartItemState = async (
     type: "SET_CARTITEMS",
     cartItems: cartItems,
   });
-  await firebaseUpdateCartItem(item)
-    .then(() => {})
-    .catch((e) => {
-      console.log(e);
-    });
 };
 
 // Update Cart Item Quantity
@@ -139,11 +119,6 @@ export const updateCartItemQty = async (
       cartItems: cartItems,
     });
     calculateCartTotal(cartItems, foodItems, dispatch);
-    await firebaseUpdateCartItem(cartItems[index])
-      .then(() => {})
-      .catch((e) => {
-        console.log(e);
-      });
   }
 };
 
@@ -164,11 +139,6 @@ export const deleteCartItem = async (
       cartItems: cartItems,
     });
     calculateCartTotal(cartItems, foodItems, dispatch);
-    await firebaseDeleteCartItem(item)
-      .then(() => {})
-      .catch((e) => {
-        console.log(e);
-      });
   }
 };
 
@@ -201,11 +171,6 @@ export const emptyCart = async (
       cartItems: [],
     });
     calculateCartTotal(cartItems, foodItems, dispatch);
-    await firebaseEmptyUserCart(cartItems)
-      .then(() => {})
-      .catch((e) => {
-        console.log(e);
-      });
   } else {
     toast.warn("Cart is already empty");
   }
@@ -349,7 +314,6 @@ export const deleteFood = async (
   foodItems: FoodItem[],
   dispatch: any
 ) => {
-  await firebaseDeleteFood(food.id);
   // remove food from foodItems
   const foodIndex = foodItems.indexOf(food);
   if (foodIndex !== -1) {

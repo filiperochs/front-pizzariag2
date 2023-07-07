@@ -33,7 +33,7 @@ function App() {
   ] = useStateValue();
 
   useEffect(() => {
-    fetchFoodData(dispatch);
+    // fetchFoodData(dispatch);
     dispatchUsers(dispatch);
     user && fetchUserCartData(user, dispatch);
   }, []);
